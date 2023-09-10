@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const {Triangle, Circle, Square} = require ('./lib/shape')
 
+//prompt the user for input
 inquirer.prompt([
     {
     type: 'input',
@@ -26,7 +27,7 @@ inquirer.prompt([
     },
 ])
 .then(answers => {
-    console.log(answers.shape)
+    //create a different shape based on the shapeColor input
     let shape;
     if(answers.shape === 'Triangle'){
         shape = new Triangle(answers.shapeColor);
@@ -35,10 +36,10 @@ inquirer.prompt([
     }else{
         shape = new Square(answers.shapeColor);
     };
-    console.log(shape)
 
     let svgGenerate
 
+    //create different font positions based on the shape being created
     if(answers.shape === 'Triangle'){
         svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="50" y="80" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
         
@@ -52,9 +53,11 @@ inquirer.prompt([
         
     }    
 
+    //write the logo.svg file and output a message if successfull
     fs.writeFileSync('logo.svg', svgGenerate, (err) =>
-    err ? console.error(err) : console.log('Success!'));
+    err ? console.error(err) : console.log(`${answers.shapeColor} created`));
 })
 .catch(error => {
     console.error(error);
+    //catch any errors and output the error
 })
