@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const {Shape, Triangle, Circle, Square} = require ('./lib/shape')
+const {Triangle, Circle, Square} = require ('./lib/shape')
 
 inquirer.prompt([
     {
@@ -36,7 +36,21 @@ inquirer.prompt([
         shape = new Square(answers.shapeColor);
     };
     console.log(shape)
-    const svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="50" y="80" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
+
+    let svgGenerate
+
+    if(answers.shape === 'Triangle'){
+        svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="50" y="80" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
+        
+    } 
+    if(answers.shape === 'Circle'){
+        svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="50" y="55" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
+        
+    }
+    if(answers.shape === 'Square'){
+        svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="125" y="100" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
+        
+    }    
 
     fs.writeFileSync('logo.svg', svgGenerate, (err) =>
     err ? console.error(err) : console.log('Success!'));
