@@ -32,7 +32,7 @@ inquirer.prompt([
         shape = new Triangle(answers.shapeColor);
     }
     console.log(shape)
-    const svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="30" y="30" font-size="40" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
+    const svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="50" y="80" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
 
     fs.writeFileSync('logo.svg', svgGenerate, (err) =>
     err ? console.error(err) : console.log('Success!'));
