@@ -30,7 +30,11 @@ inquirer.prompt([
     let shape;
     if(answers.shape === 'Triangle'){
         shape = new Triangle(answers.shapeColor);
-    }
+    }else if(answers.shape === 'Circle'){      
+        shape = new Circle(answers.shapeColor);
+    }else{
+        shape = new Square(answers.shapeColor);
+    };
     console.log(shape)
     const svgGenerate = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shape.render()} <text x="50" y="80" font-size="30" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text></svg>`
 
